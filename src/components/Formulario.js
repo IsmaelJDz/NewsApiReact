@@ -4,15 +4,34 @@ class Formulario extends Component {
   state = {
     categoria: ""
   };
+
+  componentDidMount() {
+    this.setState({
+      categoria: "general"
+    });
+  }
+
+  handleChangeCategory = e => {
+    this.setState(
+      {
+        categoria: e.target.value
+      },
+      () => {
+        //pasarlo a la pagina principal para hacer la consulta
+        this.props.consultarNoticias(this.state.categoria);
+      }
+    );
+  };
+
   render() {
     return (
       <div className="buscador row">
-        <div className="col s12 m8 offset-2">
+        <div className="col s12 m8 offset-m2">
           <form>
             <h2>Encuentra noticias por categoria</h2>
 
-            <div className="input-field col s12 m8">
-              <select>
+            <div className="input-field col s12 m8 offset-m2">
+              <select onChange={this.handleChangeCategory}>
                 <option value="general">General</option>
                 <option value="business">Business</option>
                 <option value="entertainment">Entertainment</option>
